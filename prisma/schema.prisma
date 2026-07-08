@@ -7,16 +7,28 @@ datasource db {
 }
 
 model device {
-  id       Int     @id @default(autoincrement())
-  name     String?
-  ip       String  @unique
-  port     Int
-  username String?
-  password String?
-  healthStatus String? @map("health_status")
+  id             Int       @id @default(autoincrement())
+  name           String?
+  ip             String    @unique
+  port           Int
+  username       String?
+  password       String?
+  healthStatus   String?   @map("health_status")
   lastHealthTime DateTime? @map("last_health_time")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @default(now()) @map("updated_at")
+
+  @@map("device")
+}
+
+model audio {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique
+  name      String   @map("original_name")
+  extension String
+  path      String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
 
-  @@map("device")
+  @@map("audio")
 }

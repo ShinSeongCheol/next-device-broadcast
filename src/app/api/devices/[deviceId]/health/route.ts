@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {execTelnetCommand, getTelnetOption} from "@/src/lib/server";
-import {getDevice, updateDeviceHealth} from "@/src/lib/server/prisma/deviceRepository";
+import {getDevice, updateDeviceHealth} from "@/src/lib/server/prisma";
 
 type RouteContext = {
     params: Promise<{
