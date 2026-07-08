@@ -1,0 +1,1 @@
+export {getDeviceList} from './deviceRepository'

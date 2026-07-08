@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model device {
+  id       Int     @id @default(autoincrement())
+  name     String?
+  ip       String  @unique
+  port     Int
+  username String?
+  password String?
+  healthStatus String? @map("health_status")
+  lastHealthTime DateTime? @map("last_health_time")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("device")
+}
