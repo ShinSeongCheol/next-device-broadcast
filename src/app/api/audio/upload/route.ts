@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {uploadAudio} from "@/src/app/services/audio";
+import {uploadAudio} from "@/src/app/_services/audio";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 

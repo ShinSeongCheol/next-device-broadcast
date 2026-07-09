@@ -1,7 +1,7 @@
 import {mkdir, readFile, writeFile} from "fs/promises";
 import crypto from "crypto";
 import path from "path";
-import {createAudio, getAudio} from "@/src/lib/server/prisma";
+import {createAudio, getAudio} from "@/src/app/_repository/audio";
 
 const AUDIO_DIR = path.join(process.cwd(), "storage", "audio");
 

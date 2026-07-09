@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getAudioList} from "@/src/lib/server/prisma";
+import {getAudioList} from "@/src/app/_repository";
 
 export async function GET(req:NextRequest) {
 

@@ -1,4 +1,4 @@
-import {prisma} from "@/src/lib/server/prisma/prisma";
+import {prisma} from "@/src/app/_repository/prisma";
 
 export async function createAudio(params: {uuid: string, name: string, extension: string, path: string}) {
     return prisma.audio.create({

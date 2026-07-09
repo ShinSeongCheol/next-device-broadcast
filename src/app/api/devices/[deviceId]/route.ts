@@ -1,5 +1,5 @@
-import { getDevice } from "@/src/lib/server/prisma";
 import {NextRequest, NextResponse} from "next/server";
+import {getDevice} from "@/src/app/_services/device";
 
 type RouteContext = {
     params: Promise<{
