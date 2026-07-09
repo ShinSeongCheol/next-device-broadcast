@@ -47,7 +47,7 @@ export async function GET(_req: NextRequest, context: RouteContext) {
     return new Response(fileBuffer, {
         headers: {
             "Content-Type": "audio/mpeg",
-            "Content-Disposition": `inline; filename="${fallbackFileName}"; filename*=UTF-8''${encodeRFC5987Value(originalFileName)}`,
+            "Content-Disposition": `attachment; filename="${fallbackFileName}"; filename*=UTF-8''${encodeRFC5987Value(originalFileName)}`,
             "Cache-Control": "no-store",
         },
     });
