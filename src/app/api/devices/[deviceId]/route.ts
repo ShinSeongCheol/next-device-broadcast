@@ -3,7 +3,7 @@ import {getDevice} from "@/src/app/_services/device";
 
 type RouteContext = {
     params: Promise<{
-        deviceId: string;
+        deviceId: number;
     }>;
 };
 

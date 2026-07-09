@@ -8,6 +8,7 @@ datasource db {
 
 model device {
   id             Int       @id @default(autoincrement())
+
   name           String?
   ip             String    @unique
   port           Int
@@ -16,9 +17,40 @@ model device {
   healthStatus   String?   @map("health_status")
   lastHealthTime DateTime? @map("last_health_time")
   createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @default(now()) @map("updated_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
 
+  audioCards audioCard[]
   @@map("device")
+}
+
+model audioCard {
+  id Int @id @default(autoincrement())
+  deviceId Int
+  device device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  cardIndex Int @map("card_index")
+  name String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  mixerControls mixerControl[]
+
+  @@unique([deviceId, cardIndex])
+  @@map("audio_card")
+}
+
+model mixerControl {
+  id Int @id @default(autoincrement())
+  audioCardId Int
+  audioCard audioCard @relation(fields: [audioCardId], references: [id], onDelete: Cascade)
+
+  name String
+  volume String @default("off")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([audioCardId, name])
+  @@map("mixer_control")
 }
 
 model audio {
@@ -28,7 +60,7 @@ model audio {
   extension String
   path      String
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("audio")
 }

@@ -3,7 +3,7 @@ import {updateHealth} from "@/src/app/_services/device";
 
 type RouteContext = {
     params: Promise<{
-        deviceId: string;
+        deviceId: number;
     }>;
 };
 
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, context: RouteContext)  {
     const {deviceId} = await context.params;
 
     try {
-        const res = await updateHealth(Number(deviceId))
+        const res = await updateHealth(Number(deviceId));
 
         return NextResponse.json({
             result: res,

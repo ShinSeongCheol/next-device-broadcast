@@ -1,3 +1,5 @@
+import 'server-only';
+
 import {prisma} from "@/src/app/_repository/prisma";
 
 export async function createAudio(params: {uuid: string, name: string, extension: string, path: string}) {

@@ -34,7 +34,6 @@ export async function execTelnetCommand(option: telnetOption, command:string) {
         return String(await connection.exec(command))
 
     }catch (error) {
-        console.error(error)
         throw new Error("Telnect Command 실패" , {cause: error})
     }finally {
         try {
