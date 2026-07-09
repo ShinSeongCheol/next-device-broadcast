@@ -1,15 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
-import crypto from "crypto";
-import {createAudio} from "@/src/lib/server/prisma";
+import {uploadAudio} from "@/src/app/services/audio";
 
-const AUDIO_DIR = path.join(process.cwd(), "storage", "audio");
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
-
-function safeOriginalName(name: string) {
-    return name.replace(/[^a-zA-Z0-9가-힣._-]/g, "_");
-}
 
 export async function POST(req: NextRequest) {
     try {
@@ -37,18 +29,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        await mkdir(AUDIO_DIR, { recursive: true });
-
-        const ext = ".mp3";
-        const uuid = crypto.randomUUID();
-        const originalName = safeOriginalName(file.name);
-        const savedFileName = `${uuid}${ext}`;
-        const savedPath = path.join(AUDIO_DIR, savedFileName);
-
-        const buffer = Buffer.from(await file.arrayBuffer());
-        await writeFile(savedPath, buffer);
-
-        await createAudio({uuid: uuid, name: originalName, path: AUDIO_DIR, extension: ext});
+        const {originalName, uuid} = await uploadAudio(file);
 
         return NextResponse.json({
             originalName,
