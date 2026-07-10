@@ -4,7 +4,7 @@ import {
     updateDeviceHealth, updateDeviceMixerControl,
     upsertDeviceAudioCard,
     upsertDeviceMixerControls
-} from "@/src/app/_repository/device";
+} from "@/src/repository/device";
 import {execTelnetCommand, getTelnetOption} from "@/src/lib/server";
 
 export async function getDevice(deviceId:number) {

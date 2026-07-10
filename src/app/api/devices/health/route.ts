@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getDeviceList, updateHealth} from "@/src/app/_services/device";
+import {getDeviceList, updateHealth} from "@/src/service/device";
 
 export async function GET(req: NextRequest) {
 

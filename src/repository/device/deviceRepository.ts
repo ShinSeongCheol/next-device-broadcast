@@ -1,6 +1,6 @@
 import 'server-only'
 
-import {prisma} from "@/src/app/_repository/prisma";
+import {prisma} from "@/src/repository/prisma";
 
 export async function selectDeviceList() {
     return prisma.device.findMany({

@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getAudioInfo} from "@/src/app/_services/audio";
+import {getAudioInfo} from "@/src/service/audio";
 
 type RouteContext = {
     params: Promise<{

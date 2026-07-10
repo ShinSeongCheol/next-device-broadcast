@@ -1,6 +1,6 @@
 import 'server-only';
 
-import {prisma} from "@/src/app/_repository/prisma";
+import {prisma} from "@/src/repository/prisma";
 
 export async function createAudio(params: {uuid: string, name: string, extension: string, path: string}) {
     return prisma.audio.create({

@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getDevice} from "@/src/app/_services/device";
+import {getDevice} from "@/src/service/device";
 
 type RouteContext = {
     params: Promise<{

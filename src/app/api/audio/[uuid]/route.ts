@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getAudioInfo, streamToWav} from "@/src/app/_services/audio";
+import {getAudioInfo, streamToWav} from "@/src/service/audio";
 
 type RouteContext = {
     params: Promise<{

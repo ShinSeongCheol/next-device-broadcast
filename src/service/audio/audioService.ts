@@ -1,7 +1,7 @@
 import {mkdir, readFile, writeFile} from "fs/promises";
 import crypto from "crypto";
 import path from "path";
-import {createAudio, getAudio} from "@/src/app/_repository/audio";
+import {createAudio, getAudio} from "@/src/repository/audio";
 import {spawn} from "node:child_process";
 import {Readable} from "node:stream";
 

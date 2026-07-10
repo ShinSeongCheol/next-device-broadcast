@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getDeviceVolume, updateDeviceVolume} from "@/src/app/_services/device";
+import {getDeviceVolume, updateDeviceVolume} from "@/src/service/device";
 import {RouteContext} from "@/src/app/api/devices/[deviceId]/types";
 
 export async function GET(req: NextRequest, context: RouteContext) {
