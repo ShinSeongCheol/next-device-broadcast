@@ -4,6 +4,7 @@ import path from "path";
 import {createAudio, getAudio} from "@/src/repository/audio";
 import {spawn} from "node:child_process";
 import {Readable} from "node:stream";
+import {parseBuffer} from "music-metadata";
 
 const AUDIO_DIR = path.join(process.cwd(), "storage", "audio");
 
@@ -43,6 +44,10 @@ export async function uploadAudio(file: File) {
         const savedPath = path.join(AUDIO_DIR, savedFileName);
 
         const buffer = Buffer.from(await file.arrayBuffer());
+
+        const metadata = await parseBuffer(buffer, file.type);
+        console.log(metadata);
+
         await writeFile(savedPath, buffer);
 
         await createAudio({uuid: uuid, name: originalName, path: AUDIO_DIR, extension: ext});

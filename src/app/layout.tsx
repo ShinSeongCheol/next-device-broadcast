@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Public_Sans, Oxanium } from "next/font/google";
 import "./globals.css";
+import {
+  Sidebar,
+  SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu, SidebarMenuButton, SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+import {ChevronDown} from "lucide-react";
+import Link from "next/link";
+import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
+import { cn } from "@/lib/utils";
+
+const geistHeading = Geist({subsets:['latin'],variable:'--font-heading'});
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +39,65 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="kr"
+      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", geist.variable, geistHeading.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SidebarProvider>
+          <Sidebar>
+            <SidebarHeader>
+
+            </SidebarHeader>
+
+            <SidebarContent>
+
+              <Collapsible defaultOpen={false} >
+                <SidebarGroup>
+                  <SidebarGroupLabel>
+                    <CollapsibleTrigger className={'flex w-full items-center justify-between'}>
+                      설정 <ChevronDown />
+                    </CollapsibleTrigger>
+                  </SidebarGroupLabel>
+
+                  <CollapsibleContent>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton
+                            render={
+                              <Link href={'/device'}>장비</Link>
+                            }
+                          />
+                        </SidebarMenuItem>
+                      </SidebarMenu>
+                      <SidebarMenu>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton
+                            render={
+                              <Link href={'/audio'}>음악</Link>
+                            }
+                          />
+                        </SidebarMenuItem>
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </CollapsibleContent>
+                </SidebarGroup>
+              </Collapsible>
+
+              <SidebarGroup>
+              </SidebarGroup>
+
+            </SidebarContent>
+
+            <SidebarFooter>
+
+            </SidebarFooter>
+          </Sidebar>
+          <main className={'w-full h-full p-4'}>
+            {children}
+          </main>
+        </SidebarProvider>
+      </body>
     </html>
   );
 }
