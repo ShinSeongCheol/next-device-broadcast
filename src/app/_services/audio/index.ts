@@ -1,1 +1,1 @@
-export {getAudioInfo, uploadAudio} from './audioService'
+export {getAudioInfo, uploadAudio, streamToWav} from './audioService'

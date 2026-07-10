@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getAudioInfo} from "@/src/app/_services/audio";
+import {getAudioInfo, streamToWav} from "@/src/app/_services/audio";
 
 type RouteContext = {
     params: Promise<{
@@ -22,13 +22,11 @@ export async function GET(_req: NextRequest, context: RouteContext) {
             );
         }
 
-        const {fileBuffer, fallbackFileName, originalFileName} = await getAudioInfo(uuid);
+        const wavStream = await streamToWav(uuid);
 
-        return new Response(fileBuffer, {
+        return new Response(wavStream as never, {
             headers: {
-                "Content-Type": "audio/mpeg",
-                "Content-Disposition": `inline; filename="${fallbackFileName}"; filename*=UTF-8''${originalFileName}`,
-                "Cache-Control": "no-store",
+                "Content-Type": "audio/wav",
             },
         });
 

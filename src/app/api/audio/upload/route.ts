@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {uploadAudio} from "@/src/app/_services/audio";
 
-const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 
 export async function POST(req: NextRequest) {
     try {
@@ -15,12 +15,12 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        if (!file.name.toLowerCase().endsWith(".mp3")) {
-            return NextResponse.json(
-                { message: "MP3 파일만 업로드할 수 있습니다." },
-                { status: 400 }
-            );
-        }
+        // if (!file.name.toLowerCase().endsWith(".mp3")) {
+        //     return NextResponse.json(
+        //         { message: "MP3 파일만 업로드할 수 있습니다." },
+        //         { status: 400 }
+        //     );
+        // }
 
         if (file.size > MAX_FILE_SIZE) {
             return NextResponse.json(

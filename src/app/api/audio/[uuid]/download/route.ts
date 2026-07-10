@@ -13,24 +13,24 @@ function isSafeFileName(uuid: string) {
 
 export async function GET(_req: NextRequest, context: RouteContext) {
     try{
-    const {uuid} = await context.params;
+        const {uuid} = await context.params;
 
-    if (!isSafeFileName(uuid)) {
-        return NextResponse.json(
-            { message: "잘못된 파일명입니다." },
-            { status: 400 }
-        );
-    }
+        if (!isSafeFileName(uuid)) {
+            return NextResponse.json(
+                { message: "잘못된 파일명입니다." },
+                { status: 400 }
+            );
+        }
 
-    const {fileBuffer, fallbackFileName, originalFileName} = await getAudioInfo(uuid);
+        const {audioFile, fallbackFileName, originalFileName} = await getAudioInfo(uuid);
 
-    return new Response(fileBuffer, {
-        headers: {
-            "Content-Type": "audio/mpeg",
-            "Content-Disposition": `attachment; filename="${fallbackFileName}"; filename*=UTF-8''${originalFileName}`,
-            "Cache-Control": "no-store",
-        },
-    });
+        return new Response(audioFile, {
+            headers: {
+                "Content-Type": "audio/mpeg",
+                "Content-Disposition": `attachment; filename="${fallbackFileName}"; filename*=UTF-8''${originalFileName}`,
+                "Cache-Control": "no-store",
+            },
+        });
 
     } catch(error) {
         console.error(error);
