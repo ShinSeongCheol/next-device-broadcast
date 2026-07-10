@@ -1,11 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {updateHealth} from "@/src/app/_services/device";
-
-type RouteContext = {
-    params: Promise<{
-        deviceId: number;
-    }>;
-};
+import {RouteContext} from "@/src/app/api/devices/[deviceId]/types";
 
 export async function GET(req: NextRequest, context: RouteContext)  {
 
