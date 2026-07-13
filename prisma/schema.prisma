@@ -62,5 +62,35 @@ model audio {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  audioFormat audioFormat?
+  audioCommon audioCommon?
+
   @@map("audio")
+}
+
+model audioFormat {
+  id Int @id @default(autoincrement())
+  audioId Int @unique @map("audio_id")
+  container String?
+  codec String?
+  sampleRate Int? @map("sample_rate")
+  numberOfChannels Int? @map("number_of_channels")
+  bitrate Int?
+  duration Float?
+
+  audio audio @relation(fields: [audioId], references: [id], onDelete: Cascade)
+  @@map("audio_format")
+}
+
+model audioCommon {
+  id Int @id @default(autoincrement())
+  audioId Int @unique @map("audio_id")
+  title String?
+  artist String?
+  album String?
+  year Int?
+  picturePath String?
+
+  audio audio @relation(fields: [audioId], references: [id], onDelete: Cascade)
+  @@map("audio_common")
 }
