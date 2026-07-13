@@ -1,2 +1,4 @@
 export {default as AudioItem} from '@/src/feature/audio/ui/AudioItem'
 export {default as AudioUploadForm} from '@/src/feature/audio/ui/AudioUploadForm'
+export {default as DataTable} from '@/src/feature/audio/ui/DataTable'
+export {AudioColumns} from '@/src/feature/audio/ui/Colums'

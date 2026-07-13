@@ -1,7 +1,7 @@
 import 'server-only';
 
 import {prisma} from "@/src/repository/prisma";
-import {Audio, AudioCommon, AudioFormat} from "@/src/repository/audio/types";
+import {Audio, AudioCommon, AudioDetail, AudioFormat} from "@/src/repository/audio/types";
 
 export async function createAudio(params: {uuid: string, name: string, extension: string, path: string}): Promise<Audio> {
     return prisma.audio.create({
@@ -49,10 +49,45 @@ export async function getAudio(uuid: string) {
     })
 }
 
-export async function getAudioList() {
+export async function getAudioList(): Promise<Audio[]> {
     return prisma.audio.findMany({
         orderBy: {
             id: 'asc'
         }
     })
+}
+
+export async function selectAudioDetails(): Promise<AudioDetail[]> {
+    return prisma.audio.findMany({
+        select: {
+            id: true,
+            uuid: true,
+            name: true,
+            extension: true,
+            path: true,
+            createdAt: true,
+            updatedAt: true,
+            audioFormat: {
+                select: {
+                    id: true,
+                    container: true,
+                    codec: true,
+                    sampleRate: true,
+                    numberOfChannels: true,
+                    bitrate: true,
+                    duration: true,
+                }
+            },
+            audioCommon: {
+                select: {
+                    id: true,
+                    title: true,
+                    artist: true,
+                    album: true,
+                    year: true,
+                    picturePath: true,
+                }
+            }
+        },
+    });
 }

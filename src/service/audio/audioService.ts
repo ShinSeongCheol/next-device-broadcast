@@ -1,11 +1,15 @@
 import {mkdir, readFile, writeFile} from "fs/promises";
 import crypto from "crypto";
 import path from "path";
-import {createAudio, getAudio} from "@/src/repository/audio";
+import {AudioDetail, createAudio, getAudio} from "@/src/repository/audio";
 import {spawn} from "node:child_process";
 import {Readable} from "node:stream";
 import {parseBuffer} from "music-metadata";
-import {createAudioCommon, createAudioFormat} from "@/src/repository/audio/audioRepository";
+import {
+    createAudioCommon,
+    createAudioFormat,
+    selectAudioDetails
+} from "@/src/repository/audio/audioRepository";
 
 const AUDIO_DIR = path.join(process.cwd(), "storage", "audio");
 const AUDIO_COVER_DIR = path.join(process.cwd(), "storage", "audio", "cover");
@@ -126,4 +130,8 @@ export async function streamToWav(uuid: string): Promise<Readable> {
     });
 
     return ffmpeg.stdout;
+}
+
+export async function getAudioDataTable(): Promise<AudioDetail[]> {
+    return await selectAudioDetails();
 }

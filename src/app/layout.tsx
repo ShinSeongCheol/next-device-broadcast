@@ -74,7 +74,7 @@ export default function RootLayout({
                         <SidebarMenuItem>
                           <SidebarMenuButton
                             render={
-                              <Link href={'/audio'}>음악</Link>
+                              <Link href={'/audio'}>오디오 보관함</Link>
                             }
                           />
                         </SidebarMenuItem>

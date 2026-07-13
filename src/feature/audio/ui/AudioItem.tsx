@@ -1,6 +1,5 @@
-import {Button} from "@/components/ui/button";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
-import {MoreHorizontalIcon, Music, Music2Icon, SquarePenIcon, Trash2Icon} from "lucide-react";
+import {MoreHorizontalIcon, Music, SquarePenIcon, Trash2Icon} from "lucide-react";
 import {Item, ItemActions, ItemContent, ItemTitle} from "@/components/ui/item";
 
 interface props {

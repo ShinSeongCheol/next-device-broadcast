@@ -1,4 +1,4 @@
-import {AudioItem, AudioUploadForm} from "@/src/feature/audio";
+import {AudioColumns, AudioUploadForm, DataTable} from "@/src/feature/audio";
 import {getAudioList} from "@/src/repository/audio";
 import {
     Breadcrumb,
@@ -8,10 +8,11 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import {getAudioDataTable} from "@/src/service/audio/audioService";
 
 export default async function AudioPage() {
 
-    const audioList = await getAudioList()
+    const data = await getAudioDataTable();
 
     return (
         <div className={'flex flex-col gap-4'}>
@@ -22,7 +23,7 @@ export default async function AudioPage() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage>음악</BreadcrumbPage>
+                        <BreadcrumbPage>오디오 보관함</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
@@ -31,12 +32,7 @@ export default async function AudioPage() {
                 <AudioUploadForm/>
             </div>
 
-            <div className={'flex flex-col gap-4 max-w-xl'}>
-                {audioList.map((item) => (
-                    <AudioItem key={item.id} id={item.id} name={item.name} path={item.path} createdAt={item.createdAt}
-                               updatedAt={item.updatedAt} uuid={item.uuid} extension={item.extension} />
-                ))}
-            </div>
+            <DataTable columns={AudioColumns} data={data} />
         </div>
     )
 }
