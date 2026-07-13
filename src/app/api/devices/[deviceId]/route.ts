@@ -1,11 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {getDevice} from "@/src/service/device";
-
-type RouteContext = {
-    params: Promise<{
-        deviceId: number;
-    }>;
-};
+import {RouteContext} from "@/src/app/api/devices/[deviceId]/types";
 
 export async function GET(req: NextRequest, context: RouteContext) {
     const {deviceId} = await context.params;
