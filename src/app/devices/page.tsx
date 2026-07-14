@@ -9,7 +9,7 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import {DeviceCard} from "@/src/feature/device";
+import {Button} from "@/components/ui/button";
 
 export default async function devicePage() {
 
@@ -30,6 +30,12 @@ export default async function devicePage() {
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
+
+            <div className={'flex items-center justify-end'}>
+                <Link href={'/devices/new'}>
+                    <Button variant={'outline'}>장비 추가</Button>
+                </Link>
+            </div>
 
             <div className={'grid grid-cols-4 gap-4'}>
                 {deviceList.map((device) => {

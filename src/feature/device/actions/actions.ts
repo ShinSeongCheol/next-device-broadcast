@@ -1,5 +1,6 @@
 'use server';
 import {createDevice} from "@/src/service/device";
+import {revalidatePath} from "next/cache";
 
 export async function createDeviceAction(formData: FormData) {
     const name = String(formData.get('name'));
@@ -17,4 +18,6 @@ export async function createDeviceAction(formData: FormData) {
     }
 
     await createDevice(data);
+
+    revalidatePath('/devices')
 }
