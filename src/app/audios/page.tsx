@@ -1,5 +1,4 @@
 import {AudioColumns, AudioUploadForm, DataTable} from "@/src/feature/audio";
-import {getAudioList} from "@/src/repository/audio";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -15,7 +14,7 @@ export default async function AudioPage() {
     const data = await getAudioDataTable();
 
     return (
-        <div className={'flex flex-col gap-4'}>
+        <div className={'flex flex-col gap-4 p-4'}>
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>

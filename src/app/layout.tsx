@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SidebarProvider>
           <AppSideBar />
-          <main className={'w-full h-full p-4'}>
+          <main className={'w-full h-full'}>
             {children}
           </main>
         </SidebarProvider>
