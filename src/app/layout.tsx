@@ -2,16 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Public_Sans, Oxanium } from "next/font/google";
 import "./globals.css";
 import {
-  Sidebar,
-  SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
-  SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub,
-  SidebarMenuSubButton, SidebarMenuSubItem,
   SidebarProvider,
 } from "@/components/ui/sidebar";
-import {ChevronDown, Plus} from "lucide-react";
-import Link from "next/link";
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
+
 import { cn } from "@/lib/utils";
+import {AppSideBar} from "@/src/app/_components";
 
 const geistHeading = Geist({subsets:['latin'],variable:'--font-heading'});
 
@@ -44,63 +39,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <SidebarProvider>
-          <Sidebar>
-            {/*<SidebarHeader>*/}
-
-            {/*</SidebarHeader>*/}
-
-            <SidebarContent>
-
-              <SidebarGroup>
-                <SidebarGroupLabel>
-                    플랫폼
-                </SidebarGroupLabel>
-
-                <SidebarGroupContent>
-
-                  <SidebarMenu>
-                    <Collapsible render={
-                      <SidebarMenuItem>
-                        <CollapsibleTrigger render={
-                          <SidebarMenuButton>
-                            <span>설정</span>
-                          </SidebarMenuButton>
-                        }>
-                        </CollapsibleTrigger>
-
-                        <CollapsibleContent>
-                          <SidebarMenuSub>
-                            <SidebarMenuSubItem>
-                              <SidebarMenuSubButton render={
-                                <Link href={'/device'}>장비</Link>
-                              }>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                            <SidebarMenuSubItem>
-                              <SidebarMenuSubButton render={
-                                <Link href={'/audio'}>오디오 보관함</Link>
-                              }>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          </SidebarMenuSub>
-                        </CollapsibleContent>
-                        <SidebarMenuBadge>
-                          <ChevronDown size={16}/>
-                        </SidebarMenuBadge>
-                      </SidebarMenuItem>
-                    }>
-                    </Collapsible>
-                  </SidebarMenu>
-
-                </SidebarGroupContent>
-              </SidebarGroup>
-
-            </SidebarContent>
-
-            <SidebarFooter>
-
-            </SidebarFooter>
-          </Sidebar>
+          <AppSideBar />
           <main className={'w-full h-full p-4'}>
             {children}
           </main>
