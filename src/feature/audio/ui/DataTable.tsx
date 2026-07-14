@@ -113,7 +113,7 @@ export default function DataTable<TData, TValue>({columns, data,}: Props<TData, 
                     </SelectContent>
                 </Select>
                 <Label className={'text-xs text-gray-500'}>
-                    약 {data.length}개중 {(table.getState().pagination.pageIndex) * table.getState().pagination.pageSize + 1}~{(table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize}개
+                    약 {data.length}개중 {(table.getState().pagination.pageIndex) * table.getState().pagination.pageSize + 1}~{Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, data.length)}개
                 </Label>
                 <Button
                     variant="outline"

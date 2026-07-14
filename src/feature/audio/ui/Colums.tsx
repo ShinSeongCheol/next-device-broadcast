@@ -1,6 +1,6 @@
 'use client'
 
-import {ColumnDef, RowData, TableMeta} from "@tanstack/react-table";
+import {ColumnDef, RowData} from "@tanstack/react-table";
 import {AudioDetail} from "@/src/repository/audio/types";
 import {MoreHorizontalIcon, Pause, Play, SquarePenIcon, Trash2Icon} from "lucide-react";
 import {Button} from "@/components/ui/button";
