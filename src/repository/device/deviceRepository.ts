@@ -94,3 +94,15 @@ export async function selectDeviceMixerControl(params:{mixerControlId: number}) 
         }
     })
 }
+
+export async function insertDevice(params: {name: string, ip: string, port: number, username: string, password:string}) {
+    return prisma.device.create({
+        data: {
+            name: params.name,
+            ip: params.ip,
+            port: Number(params.port),
+            username: String(params.username),
+            password: String(params.password),
+        }
+    })
+}

@@ -6,10 +6,11 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import {DeviceForm} from "@/src/feature/device";
 
 export default async function NewDevicePage() {
     return (
-        <div className={'flex flex-col gap-4 p-4'}>
+        <div className={'flex flex-col min-h-screen gap-4 p-4'}>
             <Breadcrumb className={''}>
                 <BreadcrumbList>
                     <BreadcrumbItem>
@@ -29,6 +30,10 @@ export default async function NewDevicePage() {
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
+
+            <div className={'flex-1 flex items-center justify-center'}>
+                <DeviceForm />
+            </div>
         </div>
     )
 }
