@@ -31,7 +31,11 @@ export default function DeviceCard({device}: Props) {
 
     const handleVolumeCommited = async (volume: number | readonly number[]) => {
         if (!mixerControlId) return;
-        await updateDeviceVolumeAction(device.id, mixerControlId,  Number(volume))
+        try {
+            await updateDeviceVolumeAction(device.id, mixerControlId,  Number(volume))
+        }catch (error) {
+            console.error(error);
+        }
     }
 
     const handleMixerControlChange = (value: string | null) => {

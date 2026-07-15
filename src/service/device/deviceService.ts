@@ -100,30 +100,25 @@ export async function updateDeviceVolume(deviceId:number, mixerControlId:number,
         throw new Error("장비를 찾지 못했습니다.");
     }
 
-    try {
-        const telnetOption = getTelnetOption({
-            host: device.ip,
-            port: device.port,
-            username: device.username || '',
-            password: device.password || ''
-        });
+    const telnetOption = getTelnetOption({
+        host: device.ip,
+        port: device.port,
+        username: device.username || '',
+        password: device.password || ''
+    });
 
-        const mixerControl = await selectDeviceMixerControl({mixerControlId: Number(mixerControlId)});
-        if (!mixerControl) {
-            throw new Error("장비가 없습니다.");
-        }
-
-        const res = await execTelnetCommand(telnetOption, `amixer sset ${mixerControl.name} ${volume}%`)
-
-        if (!res) {
-            throw new Error("장비 응답이 없습니다.");
-        }
-
-        return await updateDeviceMixerControl({mixerControlId: mixerControlId, volume: volume})
-
-    } catch (error) {
-        console.error(error);
+    const mixerControl = await selectDeviceMixerControl({mixerControlId: Number(mixerControlId)});
+    if (!mixerControl) {
+        throw new Error("장비가 없습니다.");
     }
+
+    const res = await execTelnetCommand(telnetOption, `amixer sset ${mixerControl.name} ${volume}%`)
+
+    if (!res) {
+        throw new Error("장비 응답이 없습니다.");
+    }
+
+    return await updateDeviceMixerControl({mixerControlId: mixerControlId, volume: volume})
 }
 
 export async function createDevice(params : {name: string, ip: string, port: number, username: string, password:string}) {
