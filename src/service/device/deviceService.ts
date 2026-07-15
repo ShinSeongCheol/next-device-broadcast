@@ -1,4 +1,5 @@
 import {
+    deleteDevice,
     insertDevice,
     selectDevice,
     selectDeviceList, selectDeviceMixerControl, selectDeviceMixerControls,
@@ -123,4 +124,8 @@ export async function updateDeviceVolume(deviceId:number, mixerControlId:number,
 
 export async function createDevice(params : {name: string, ip: string, port: number, username: string, password:string}) {
     await insertDevice(params);
+}
+
+export async function removeDevice(deviceId:number) {
+    await deleteDevice(deviceId);
 }

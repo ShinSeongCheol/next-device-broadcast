@@ -9,7 +9,7 @@ import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/inpu
 import {Slider} from "@/components/ui/slider";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {useState} from "react";
-import {refreshDeviceAction, updateDeviceVolumeAction} from "@/src/feature/device/actions";
+import {deleteDeviceAction, refreshDeviceAction, updateDeviceVolumeAction} from "@/src/feature/device/actions";
 import {
     DropdownMenu, DropdownMenuContent,
     DropdownMenuGroup,
@@ -77,7 +77,7 @@ export default function DeviceCard({device}: Props) {
                         <DropdownMenuContent>
                             <DropdownMenuGroup>
                                 <DropdownMenuItem onClick={() => refreshDeviceAction([device.id])}><RefreshCw/> 동기화</DropdownMenuItem>
-                                <DropdownMenuItem variant={'destructive'}><Trash2Icon/> 삭제</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => deleteDeviceAction(device.id)} variant={'destructive'}><Trash2Icon/> 삭제</DropdownMenuItem>
                             </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>

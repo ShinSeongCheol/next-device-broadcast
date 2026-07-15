@@ -145,3 +145,10 @@ export async function insertDevice(params: {name: string, ip: string, port: numb
         }
     })
 }
+export async function deleteDevice(deviceId: number) {
+    return prisma.device.delete({
+        where: {
+            id: Number(deviceId)
+        }
+    })
+}

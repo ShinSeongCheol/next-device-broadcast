@@ -1,6 +1,7 @@
 'use server';
 import {createDevice, updateDeviceVolume, updateHealth} from "@/src/service/device";
 import {revalidatePath} from "next/cache";
+import {removeDevice} from "@/src/service/device/deviceService";
 
 export async function createDeviceAction(formData: FormData) {
     const name = String(formData.get('name'));
@@ -24,6 +25,11 @@ export async function createDeviceAction(formData: FormData) {
 
 export async function updateDeviceVolumeAction(deviceId:number, mixerControlId:number, volume: number) {
     await updateDeviceVolume(deviceId,mixerControlId, String(volume));
+}
+
+export async function deleteDeviceAction(deviceId:number) {
+    await removeDevice(deviceId);
+    revalidatePath('/devices')
 }
 
 export async function refreshDeviceAction(deviceIdList:number[]) {
