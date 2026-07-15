@@ -133,14 +133,17 @@ export default function DeviceCard({device}: Props) {
             <CardFooter className={'text-xs flex items-center gap-2'}>
                 <RefreshCw size={16}/>
                 <span>
-                    갱신시간 : {new Date(device.lastHealthTime || '').toLocaleString('ko-kr', {
+                    갱신시간 : {device.lastHealthTime ? new Date(device.lastHealthTime || '').toLocaleString('ko-kr', {
                     year: 'numeric',
                     month: 'numeric',
                     day: 'numeric',
                     hour: 'numeric',
                     minute: 'numeric',
                     second: 'numeric',
-                })}
+                })
+                    :
+                    '-'
+                }
                 </span>
             </CardFooter>
         </Card>
