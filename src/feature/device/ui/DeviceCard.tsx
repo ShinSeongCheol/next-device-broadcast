@@ -25,7 +25,7 @@ export default function DeviceCard({device}: Props) {
 
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className={'gap-2'}>
                 <CardTitle className="flex gap-4">
                     {
                         isNormal ? <Badge variant={'outline'}>정상</Badge> : <Badge variant={'destructive'}>오류</Badge>
@@ -34,7 +34,10 @@ export default function DeviceCard({device}: Props) {
                         {device.name}
                     </span>
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="flex items-center gap-1 font-mono text-xs">
+                    <span className="text-neutral-500">{device.ip}</span>
+                    <span className="text-neutral-300">:</span>
+                    <span className="text-neutral-500">{device.port}</span>
                 </CardDescription>
                 <CardAction>
                     <MoreHorizontalIcon/>
