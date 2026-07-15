@@ -2,3 +2,5 @@ export {selectDeviceList, selectDevice, updateDeviceHealth} from './deviceReposi
 export {upsertDeviceAudioCard, updateDeviceMixerControl, upsertDeviceMixerControls} from './deviceRepository'
 export {selectDeviceMixerControls, selectDeviceMixerControl} from './deviceRepository'
 export {insertDevice} from './deviceRepository'
+
+export {type Device} from './types'

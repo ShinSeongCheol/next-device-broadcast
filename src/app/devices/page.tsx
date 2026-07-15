@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {DeviceCard} from "@/src/feature/device";
 
 export default async function devicePage() {
 
@@ -37,28 +38,10 @@ export default async function devicePage() {
                 </Link>
             </div>
 
-            <div className={'grid grid-cols-4 gap-4'}>
-                {deviceList.map((device) => {
-                    return (
-                        <Card key={device.id}>
-                            <CardHeader>
-                                <CardTitle>{device.name}</CardTitle>
-                                <CardDescription className={''}>{device.ip}</CardDescription>
-                                <CardAction>{device.healthStatus === 'NORMAL' ? <Badge variant={'outline'}>정상</Badge>:<Badge variant={'destructive'}>오류</Badge>}</CardAction>
-                            </CardHeader>
-
-                            <CardContent>
-                                <p>{device.lastHealthTime?.toLocaleString()}</p>
-                            </CardContent>
-
-                            <CardFooter className={'flex flex-col items-start'}>
-                                <p>생성일 : {device.createdAt.toLocaleString()}</p>
-                                <p>수정일 : {device.updatedAt.toLocaleString()}</p>
-                            </CardFooter>
-                        </Card>
-                    )
-                })
-                }
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+                {deviceList.map((device) => (
+                    <DeviceCard key={device.id} device={device} />
+                ))}
             </div>
         </div>
     )

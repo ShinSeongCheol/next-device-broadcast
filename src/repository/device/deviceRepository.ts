@@ -1,8 +1,9 @@
 import 'server-only'
 
 import {prisma} from "@/src/repository/prisma";
+import {Device} from "@/src/repository/device/types";
 
-export async function selectDeviceList() {
+export async function selectDeviceList(): Promise<Device[]> {
     return prisma.device.findMany({
         orderBy: {
             id: 'asc',
@@ -10,7 +11,7 @@ export async function selectDeviceList() {
     })
 }
 
-export async function selectDevice(deviceId: number) {
+export async function selectDevice(deviceId: number): Promise<Device | null>{
     return prisma.device.findFirst({
         where: {
             id: Number(deviceId)
