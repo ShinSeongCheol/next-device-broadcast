@@ -1,6 +1,4 @@
-import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {getDeviceList} from "@/src/service/device";
-import {Badge} from "@/components/ui/badge";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -11,10 +9,11 @@ import {
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {DeviceCard} from "@/src/feature/device";
+import {getDeviceDetail} from "@/src/service/device/deviceService";
 
 export default async function devicePage() {
 
-    const deviceList = await getDeviceList();
+    const deviceList = await getDeviceDetail();
 
     return (
         <div className={'flex flex-col gap-4 p-4'}>

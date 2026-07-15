@@ -7,6 +7,7 @@ import {
     upsertDeviceMixerControls
 } from "@/src/repository/device";
 import {execTelnetCommand, getTelnetOption} from "@/src/lib/server";
+import {selectDeviceDetailList} from "@/src/repository/device/deviceRepository";
 
 export async function getDevice(deviceId:number) {
     return await selectDevice(deviceId);
@@ -14,6 +15,10 @@ export async function getDevice(deviceId:number) {
 
 export async function getDeviceList() {
     return  await selectDeviceList();
+}
+
+export async function getDeviceDetail() {
+    return await selectDeviceDetailList();
 }
 
 export async function updateHealth(deviceId: number) {

@@ -1,10 +1,48 @@
 import 'server-only'
 
 import {prisma} from "@/src/repository/prisma";
-import {Device} from "@/src/repository/device/types";
+import {Device, DeviceDetail} from "@/src/repository/device/types";
 
 export async function selectDeviceList(): Promise<Device[]> {
     return prisma.device.findMany({
+        orderBy: {
+            id: 'asc',
+        }
+    })
+}
+
+export async function selectDeviceDetailList(): Promise<DeviceDetail[]> {
+    return prisma.device.findMany({
+        select: {
+            id: true,
+            name: true,
+            ip: true,
+            port: true,
+            username: true,
+            password: true,
+            healthStatus: true,
+            lastHealthTime: true,
+            createdAt: true,
+            updatedAt: true,
+            audioCards: {
+                select: {
+                    id: true,
+                    cardIndex: true,
+                    name: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    mixerControls: {
+                        select: {
+                            id: true,
+                            name: true,
+                            volume: true,
+                            createdAt: true,
+                            updatedAt: true
+                        }
+                    }
+                }
+            }
+        },
         orderBy: {
             id: 'asc',
         }

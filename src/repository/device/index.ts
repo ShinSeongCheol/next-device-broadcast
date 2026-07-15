@@ -3,4 +3,4 @@ export {upsertDeviceAudioCard, updateDeviceMixerControl, upsertDeviceMixerContro
 export {selectDeviceMixerControls, selectDeviceMixerControl} from './deviceRepository'
 export {insertDevice} from './deviceRepository'
 
-export {type Device} from './types'
+export {type Device, type DeviceDetail} from './types'

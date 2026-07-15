@@ -1,7 +1,7 @@
 'use client';
 
 import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
-import {Device} from "@/src/repository/device";
+import {DeviceDetail} from "@/src/repository/device";
 import {Badge} from "@/components/ui/badge";
 import {LockKeyholeIcon, MoreHorizontalIcon, RefreshCw, User2Icon} from "lucide-react";
 import {Field, FieldGroup, FieldLabel} from "@/components/ui/field";
@@ -11,16 +11,27 @@ import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVal
 import {useState} from "react";
 
 interface Props {
-    device: Device;
+    device: DeviceDetail;
 }
 
 export default function DeviceCard({device}: Props) {
 
+    const audioCards = device.audioCards;
+    const mixerControls = audioCards?.[0]?.mixerControls;
+
     const isNormal = device.healthStatus === 'NORMAL';
-    const [volume, setVolume] = useState(50);
+    const [volume, setVolume] = useState<number>(Number(mixerControls?.[0].volume ?? 50));
+
 
     const handleVolumeChange = (volume: number | readonly number[]) => {
         setVolume(volume as number);
+    }
+
+    const handleMixerControlChange = (value: string | null) => {
+        const volume =  mixerControls?.find(mixerControl => mixerControl.id === Number(value))?.volume;
+        if (!volume) return;
+
+        setVolume(Number(volume));
     }
 
     return (
@@ -64,15 +75,22 @@ export default function DeviceCard({device}: Props) {
                         </InputGroup>
                     </Field>
                     <Field className={'col-span-2'}>
-                        <Select disabled={!isNormal}>
+                        <Select defaultValue={mixerControls?.[0].name} onValueChange={handleMixerControlChange} disabled={!isNormal} items={mixerControls?.map(mixerControl => {
+                            return {
+                                label: mixerControl.name,
+                                value: mixerControl.id
+                            }
+                        })}>
                             <SelectTrigger>
                                 <SelectValue placeholder={'사운드장치'}></SelectValue>
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent alignItemWithTrigger={true}>
                                 <SelectGroup>
-                                    <SelectItem>
-                                        Headphone
-                                    </SelectItem>
+                                    {mixerControls?.map((mixerControl) => (
+                                        <SelectItem key={mixerControl.id} value={mixerControl.id}>
+                                            {mixerControl.name}
+                                        </SelectItem>
+                                    ))}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
