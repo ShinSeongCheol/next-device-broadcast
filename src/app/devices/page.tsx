@@ -1,4 +1,3 @@
-import {getDeviceList} from "@/src/service/device";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -8,8 +7,9 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
-import {DeviceCard} from "@/src/feature/device";
+import {DeviceCard, RefreshButton} from "@/src/feature/device";
 import {getDeviceDetail} from "@/src/service/device/deviceService";
+import {PackagePlus, RotateCw} from "lucide-react";
 
 export default async function devicePage() {
 
@@ -31,9 +31,10 @@ export default async function devicePage() {
                 </BreadcrumbList>
             </Breadcrumb>
 
-            <div className={'flex items-center justify-end'}>
+            <div className={'flex items-center justify-end gap-4'}>
+                <RefreshButton deviceIdList={deviceList.map((device) => device.id)}/>
                 <Link href={'/devices/new'}>
-                    <Button variant={'outline'}>장비 추가</Button>
+                    <Button variant={'outline'}><PackagePlus/>장비 추가</Button>
                 </Link>
             </div>
 

@@ -3,13 +3,20 @@
 import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {DeviceDetail} from "@/src/repository/device";
 import {Badge} from "@/components/ui/badge";
-import {LockKeyholeIcon, MoreHorizontalIcon, RefreshCw, User2Icon} from "lucide-react";
+import {LockKeyholeIcon, MoreHorizontalIcon, RefreshCw, Trash2Icon, User2Icon} from "lucide-react";
 import {Field, FieldGroup, FieldLabel} from "@/components/ui/field";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group";
 import {Slider} from "@/components/ui/slider";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {useState} from "react";
-import {updateDeviceVolumeAction} from "@/src/feature/device/actions";
+import {refreshDeviceAction, updateDeviceVolumeAction} from "@/src/feature/device/actions";
+import {
+    DropdownMenu, DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {Button} from "@/components/ui/button";
 
 interface Props {
     device: DeviceDetail;
@@ -64,7 +71,16 @@ export default function DeviceCard({device}: Props) {
                     <span className="text-neutral-500">{device.port}</span>
                 </CardDescription>
                 <CardAction>
-                    <MoreHorizontalIcon/>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger render={<Button variant={'outline'} size={'icon-sm'}><MoreHorizontalIcon/></Button>}>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem onClick={() => refreshDeviceAction([device.id])}><RefreshCw/> 동기화</DropdownMenuItem>
+                                <DropdownMenuItem variant={'destructive'}><Trash2Icon/> 삭제</DropdownMenuItem>
+                            </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </CardAction>
             </CardHeader>
             <CardContent className={''}>
