@@ -9,6 +9,7 @@ import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/inpu
 import {Slider} from "@/components/ui/slider";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {useState} from "react";
+import {updateDeviceVolumeAction} from "@/src/feature/device/actions";
 
 interface Props {
     device: DeviceDetail;
@@ -20,6 +21,7 @@ export default function DeviceCard({device}: Props) {
     const mixerControls = audioCards?.[0]?.mixerControls;
 
     const isNormal = device.healthStatus === 'NORMAL';
+    const [mixerControlId, setMixerControlId] = useState(mixerControls?.[0].id);
     const [volume, setVolume] = useState<number>(Number(mixerControls?.[0].volume ?? 50));
 
 
@@ -27,7 +29,14 @@ export default function DeviceCard({device}: Props) {
         setVolume(volume as number);
     }
 
+    const handleVolumeCommited = async (volume: number | readonly number[]) => {
+        if (!mixerControlId) return;
+        await updateDeviceVolumeAction(device.id, mixerControlId,  Number(volume))
+    }
+
     const handleMixerControlChange = (value: string | null) => {
+        if (!value) return;
+        setMixerControlId(Number(value));
         const volume =  mixerControls?.find(mixerControl => mixerControl.id === Number(value))?.volume;
         if (!volume) return;
 
@@ -97,7 +106,7 @@ export default function DeviceCard({device}: Props) {
                     </Field>
                     <Field className="col-span-2">
                         <FieldLabel className={'text-xs'}>볼륨 {volume}%</FieldLabel>
-                        <Slider defaultValue={[50]} value={[volume]} max={100} step={1} disabled={!isNormal} onValueChange={handleVolumeChange}></Slider>
+                        <Slider defaultValue={[50]} value={[volume]} max={100} step={1} disabled={!isNormal} onValueChange={handleVolumeChange} onValueCommitted={handleVolumeCommited}></Slider>
                     </Field>
                 </FieldGroup>
             </CardContent>

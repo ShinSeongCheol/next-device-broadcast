@@ -122,6 +122,7 @@ export async function updateDeviceVolume(deviceId:number, mixerControlId:number,
         return await updateDeviceMixerControl({mixerControlId: mixerControlId, volume: volume})
 
     } catch (error) {
+        console.error(error);
     }
 }
 

@@ -1,5 +1,5 @@
 'use server';
-import {createDevice} from "@/src/service/device";
+import {createDevice, updateDeviceVolume} from "@/src/service/device";
 import {revalidatePath} from "next/cache";
 
 export async function createDeviceAction(formData: FormData) {
@@ -20,4 +20,8 @@ export async function createDeviceAction(formData: FormData) {
     await createDevice(data);
 
     revalidatePath('/devices')
+}
+
+export async function updateDeviceVolumeAction(deviceId:number, mixerControlId:number, volume: number) {
+    await updateDeviceVolume(deviceId,mixerControlId, String(volume));
 }
