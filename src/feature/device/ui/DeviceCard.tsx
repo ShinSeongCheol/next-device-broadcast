@@ -77,6 +77,7 @@ export default function DeviceCard({device}: Props) {
                         </span>
                     </CardTitle>
                     <CardDescription className="flex items-center gap-1 font-mono text-xs">
+                        <Badge variant={'outline'}>{device.service.toUpperCase()}</Badge>
                         <span className="text-neutral-500">{device.ip}</span>
                         <span className="text-neutral-300">:</span>
                         <span className="text-neutral-500">{device.port}</span>
