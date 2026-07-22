@@ -25,8 +25,8 @@ export async function execTelnetCommand(option: telnetOption, command:string) {
             loginPrompt: /login[: ]*$/i,
             passwordPrompt: /Password: /i,
             shellPrompt: /[#>$]\s*$/,
-            timeout: 1000,
-            execTimeout: 5000,
+            timeout: 10000,
+            execTimeout: 50000,
             ors: "\r\n",
             irs: "\r\n",
         })
