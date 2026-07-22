@@ -7,11 +7,11 @@ import {
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import {getAudioDataTable} from "@/src/service/audio/audioService";
+import {getAudioDetail} from "@/src/service/audio";
 
 export default async function AudioPage() {
 
-    const data = await getAudioDataTable();
+    const data = await getAudioDetail();
 
     return (
         <div className={'flex flex-col gap-4 p-4'}>

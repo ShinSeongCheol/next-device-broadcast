@@ -132,6 +132,6 @@ export async function streamToWav(uuid: string): Promise<Readable> {
     return ffmpeg.stdout;
 }
 
-export async function getAudioDataTable(): Promise<AudioDetail[]> {
+export async function getAudioDetail(): Promise<AudioDetail[]> {
     return await selectAudioDetails();
 }
