@@ -2,6 +2,7 @@ export type Device = {
     id: number;
     name: string | null;
     ip: string;
+    service: string;
     port: number;
     username: string | null;
     password: string | null;
@@ -15,6 +16,7 @@ export type DeviceDetail = {
     id: number,
     name: string | null,
     ip: string,
+    service: string,
     port: number,
     username: string | null,
     password: string | null,

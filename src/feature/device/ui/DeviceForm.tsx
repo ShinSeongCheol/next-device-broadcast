@@ -15,6 +15,14 @@ import {Server} from "lucide-react";
 import {createDeviceAction} from "@/src/feature/device/actions";
 import {useRouter} from "next/navigation";
 import React, {useTransition} from "react";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from "@/components/ui/select";
 
 export default function DeviceForm() {
     const router = useRouter()
@@ -71,9 +79,23 @@ export default function DeviceForm() {
                                         <FieldDescription>목록에서 쉽게 구분할 수 있는 이름을 입력하세요.</FieldDescription>
                                     </Field>
                                     <div className={'grid grid-cols-2 gap-4'}>
-                                        <Field>
+                                        <Field className={'col-span-2'}>
                                             <FieldLabel htmlFor="ip">IP 주소</FieldLabel>
                                             <Input id="ip" name="ip" type="text" inputMode="decimal" autoComplete="off" placeholder="192.168.0.100" required={true}/>
+                                        </Field>
+                                        <Field>
+                                            <FieldLabel htmlFor={'service'}>서비스</FieldLabel>
+                                            <Select id={'service'} name={'service'} required={true}>
+                                                <SelectTrigger className="">
+                                                    <SelectValue placeholder={'선택'}/>
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectItem value={'ssh'}>SSH</SelectItem>
+                                                        <SelectItem value={'telnet'}>telnet</SelectItem>
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
                                         </Field>
                                         <Field>
                                             <FieldLabel htmlFor="port">포트</FieldLabel>

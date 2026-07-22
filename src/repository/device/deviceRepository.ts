@@ -17,6 +17,7 @@ export async function selectDeviceDetailList(): Promise<DeviceDetail[]> {
             id: true,
             name: true,
             ip: true,
+            service: true,
             port: true,
             username: true,
             password: true,
@@ -134,11 +135,12 @@ export async function selectDeviceMixerControl(params:{mixerControlId: number}) 
     })
 }
 
-export async function insertDevice(params: {name: string, ip: string, port: number, username: string, password:string}) {
+export async function insertDevice(params: {name: string, ip: string, service: string, port: number, username: string, password:string}) {
     return prisma.device.create({
         data: {
             name: params.name,
             ip: params.ip,
+            service: String(params.service),
             port: Number(params.port),
             username: String(params.username),
             password: String(params.password),

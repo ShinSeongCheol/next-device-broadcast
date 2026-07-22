@@ -6,6 +6,7 @@ import {removeDevice} from "@/src/service/device/deviceService";
 export async function createDeviceAction(formData: FormData) {
     const name = String(formData.get('name'));
     const ip = String(formData.get('ip'));
+    const service = String(formData.get('service'));
     const port = Number(formData.get('port'));
     const username = String(formData.get('username'));
     const password = String(formData.get('password'));
@@ -13,6 +14,7 @@ export async function createDeviceAction(formData: FormData) {
     const data = {
         name,
         ip,
+        service,
         port,
         username,
         password,

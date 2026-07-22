@@ -11,6 +11,7 @@ model device {
 
   name           String?
   ip             String    @unique
+  service        String    @default("ssh")
   port           Int
   username       String?
   password       String?
