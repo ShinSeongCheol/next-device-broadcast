@@ -6,7 +6,14 @@ const nextConfig: NextConfig = {
         serverActions: {
             bodySizeLimit: '100mb',
         }
-    }
+    },
+    images: {
+        localPatterns: [
+            {
+                pathname: '/api/images',
+            },
+        ],
+    },
 };
 
 export default nextConfig;

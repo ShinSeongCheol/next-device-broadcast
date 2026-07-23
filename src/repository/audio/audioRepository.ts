@@ -91,3 +91,41 @@ export async function selectAudioDetails(): Promise<AudioDetail[]> {
         },
     });
 }
+
+export async function selectAudioDetail(params: {audioId: number}): Promise<AudioDetail|null> {
+    return prisma.audio.findUnique({
+        select: {
+            id: true,
+            uuid: true,
+            name: true,
+            extension: true,
+            path: true,
+            createdAt: true,
+            updatedAt: true,
+            audioFormat: {
+                select: {
+                    id: true,
+                    container: true,
+                    codec: true,
+                    sampleRate: true,
+                    numberOfChannels: true,
+                    bitrate: true,
+                    duration: true,
+                }
+            },
+            audioCommon: {
+                select: {
+                    id: true,
+                    title: true,
+                    artist: true,
+                    album: true,
+                    year: true,
+                    picturePath: true,
+                }
+            }
+        },
+        where: {
+            id: Number(params.audioId)
+        }
+    })
+}
