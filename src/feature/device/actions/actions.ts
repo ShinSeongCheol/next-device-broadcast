@@ -42,4 +42,6 @@ export async function refreshDeviceAction(deviceIdList:number[]) {
             console.error(error);
         }
     }
+
+    revalidatePath('/devices');
 }

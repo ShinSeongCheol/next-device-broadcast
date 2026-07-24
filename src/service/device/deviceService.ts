@@ -7,8 +7,8 @@ import {
     upsertDeviceAudioCard,
     upsertDeviceMixerControls
 } from "@/src/repository/device";
-import {execTelnetCommand, getTelnetOption} from "@/src/lib/server";
 import {selectDeviceDetailList} from "@/src/repository/device/deviceRepository";
+import {Executor} from "@/src/lib/executor";
 
 export async function getDevice(deviceId:number) {
     return await selectDevice(deviceId);
@@ -30,15 +30,21 @@ export async function updateHealth(deviceId: number) {
     }
 
     try {
-        const telnetOption = getTelnetOption({
+
+        const config = {
+            protocol: device.service.toUpperCase(),
             host: device.ip,
             port: device.port,
             username: device.username || '',
-            password: device.password || ''
-        });
+            password: device.password || '',
+        }
 
-        const rawSoundCards = (await execTelnetCommand(telnetOption, 'cat /proc/asound/cards | sed -nE \'s/^[[:space:]]*([0-9]+).* - (.*)$/\\1 \\2/p\'')).trim();
-        const rawMixerStatus = (await execTelnetCommand(telnetOption, 'amixer scontents')).trim();
+        const executor = new Executor();
+        const rawSoundCardCommand = 'cat /proc/asound/cards | sed -nE \'s/^[[:space:]]*([0-9]+).* - (.*)$/\\1 \\2/p\'';
+        const rawMixerStatusCommand = 'amixer scontents';
+
+        const rawSoundCards = await executor.execute(config, rawSoundCardCommand);
+        const rawMixerStatus = await executor.execute(config, rawMixerStatusCommand);
 
         if (!rawSoundCards || !rawMixerStatus) {
             throw new Error("장비 응답이 없거나 사운드 설정이 비어있습니다.");
@@ -101,19 +107,24 @@ export async function updateDeviceVolume(deviceId:number, mixerControlId:number,
         throw new Error("장비를 찾지 못했습니다.");
     }
 
-    const telnetOption = getTelnetOption({
-        host: device.ip,
-        port: device.port,
-        username: device.username || '',
-        password: device.password || ''
-    });
 
     const mixerControl = await selectDeviceMixerControl({mixerControlId: Number(mixerControlId)});
     if (!mixerControl) {
         throw new Error("장비가 없습니다.");
     }
 
-    const res = await execTelnetCommand(telnetOption, `amixer sset ${mixerControl.name} ${volume}%`)
+    const config = {
+        protocol: device.service.toUpperCase(),
+        host: device.ip,
+        port: device.port,
+        username: device.username || '',
+        password: device.password || '',
+    }
+
+    const command = `amixer sset ${mixerControl.name} ${volume}%`;
+
+    const executor = new Executor();
+    const res = executor.execute(config, command);
 
     if (!res) {
         throw new Error("장비 응답이 없습니다.");
@@ -122,7 +133,7 @@ export async function updateDeviceVolume(deviceId:number, mixerControlId:number,
     return await updateDeviceMixerControl({mixerControlId: mixerControlId, volume: volume})
 }
 
-export async function createDevice(params : {name: string, ip: string, port: number, username: string, password:string}) {
+export async function createDevice(params : {name: string, ip: string, service:string, port: number, username: string, password:string}) {
     await insertDevice(params);
 }
 
