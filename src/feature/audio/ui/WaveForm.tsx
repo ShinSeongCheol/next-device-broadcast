@@ -24,7 +24,9 @@ export default function WaveForm({uuid}: Props) {
             waveColor: '#818cf8',
             progressColor: '#4f46e5',
             url: `/api/audio/${uuid}`,
+            barHeight: 0.5,
             mediaControls: true,
+            autoplay: true
         }
 
         wavesurferRef.current = WaveSurfer.create(options)
@@ -32,6 +34,11 @@ export default function WaveForm({uuid}: Props) {
         wavesurferRef.current.on('click', async () => {
             if (!wavesurferRef.current) return;
             await wavesurferRef.current.play();
+        })
+
+        wavesurferRef.current.on('finish', () => {
+            if (!wavesurferRef.current) return;
+            wavesurferRef.current.destroy();
         })
 
         return () => {
