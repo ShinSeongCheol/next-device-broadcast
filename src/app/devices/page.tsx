@@ -9,7 +9,7 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {DeviceCard, RefreshButton} from "@/src/feature/device";
 import {getDeviceDetail} from "@/src/service/device/deviceService";
-import {PackagePlus, RotateCw} from "lucide-react";
+import {PackagePlus} from "lucide-react";
 
 export default async function devicePage() {
 

@@ -25,6 +25,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {DeviceTerminal} from "@/src/feature/device";
+import {
+    AlertDialog, AlertDialogAction, AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle
+} from "@/components/ui/alert-dialog";
 
 interface Props {
     device: DeviceDetail;
@@ -40,6 +47,8 @@ export default function DeviceCard({device}: Props) {
     const [volume, setVolume] = useState<number>(Number(mixerControls?.[0]?.volume ?? 50));
 
     const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(false);
+    const [isDeleteAlertDialogOpen, setIsDeleteAlertDialogOpen] = useState<boolean>(false);
+    const [isSyncAlertDialogOpen, setIsSyncAlertDialogOpen] = useState<boolean>(false);
 
 
     const handleVolumeChange = (volume: number | readonly number[]) => {
@@ -62,6 +71,16 @@ export default function DeviceCard({device}: Props) {
         if (!volume) return;
 
         setVolume(Number(volume));
+    }
+
+    const handleSync = async () => {
+        await refreshDeviceAction([device.id])
+        setIsSyncAlertDialogOpen(false);
+    }
+
+    const handleDelete = async () => {
+        await deleteDeviceAction(device.id)
+        setIsDeleteAlertDialogOpen(false);
     }
 
     return (
@@ -88,9 +107,9 @@ export default function DeviceCard({device}: Props) {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuGroup>
-                                    <DropdownMenuItem onClick={() => refreshDeviceAction([device.id])}><RefreshCw/> 동기화</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setIsSyncAlertDialogOpen(true)}><RefreshCw/> 동기화</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => setIsTerminalOpen(true)}><SquareTerminal /> 터미널</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => deleteDeviceAction(device.id)} variant={'destructive'}><Trash2Icon/> 삭제</DropdownMenuItem>
+                                    <DropdownMenuItem variant={'destructive'} onClick={() => setIsDeleteAlertDialogOpen(true)}><Trash2Icon/> 삭제</DropdownMenuItem>
                                 </DropdownMenuGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -160,7 +179,32 @@ export default function DeviceCard({device}: Props) {
                     </span>
                 </CardFooter>
             </Card>
-        <DeviceTerminal isTerminalOpen={isTerminalOpen} setIsTerminalOpen={setIsTerminalOpen} deviceId={device.id}></DeviceTerminal>
+
+            <DeviceTerminal isTerminalOpen={isTerminalOpen} setIsTerminalOpen={setIsTerminalOpen} deviceId={device.id}></DeviceTerminal>
+
+            <AlertDialog open={isSyncAlertDialogOpen} onOpenChange={setIsSyncAlertDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>동기화 하시겠습니까?</AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel variant={'outline'}>취소</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleSync}>동기화</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={isDeleteAlertDialogOpen} onOpenChange={setIsDeleteAlertDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>삭제 하시겠습니까?</AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel variant={'outline'}>취소</AlertDialogCancel>
+                        <AlertDialogAction variant={'destructive'} onClick={handleDelete}>삭제</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
     </>
     );
 }
