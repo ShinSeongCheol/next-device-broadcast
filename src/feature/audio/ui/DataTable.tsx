@@ -1,19 +1,20 @@
 'use client';
 
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import {ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable} from "@tanstack/react-table";
+import {flexRender, getCoreRowModel, getPaginationRowModel, useReactTable} from "@tanstack/react-table";
 import {Button} from "@/components/ui/button";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Label} from "@/components/ui/label";
 import {useRef, useState} from "react";
+import {AudioColumns} from "@/src/feature/audio";
+import {AudioDetail} from "@/src/repository/audio";
 
-interface Props<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+interface Props {
+    data: AudioDetail[]
 }
 
-export default function DataTable<TData, TValue>({columns, data,}: Props<TData, TValue>) {
+export default function DataTable({data,}: Props) {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [currentUuid, setCurrentUuid] = useState<string | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -42,7 +43,7 @@ export default function DataTable<TData, TValue>({columns, data,}: Props<TData, 
 
     const table = useReactTable({
         data,
-        columns,
+        columns: AudioColumns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         meta: {
@@ -90,7 +91,7 @@ export default function DataTable<TData, TValue>({columns, data,}: Props<TData, 
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={AudioColumns.length} className="h-24 text-center">
                                     데이터가 없습니다.
                                 </TableCell>
                             </TableRow>

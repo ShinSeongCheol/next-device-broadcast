@@ -129,3 +129,11 @@ export async function selectAudioDetail(params: {audioId: number}): Promise<Audi
         }
     })
 }
+
+export async function deleteAudio(params: {uuid:string}) {
+    return prisma.audio.delete({
+        where: {
+            uuid: params.uuid
+        }
+    })
+}

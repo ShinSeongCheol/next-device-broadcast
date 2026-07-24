@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import {getAudioInfo, streamToWav} from "@/src/service/audio";
+import {streamToWav} from "@/src/service/audio";
 
 type RouteContext = {
     params: Promise<{
@@ -36,5 +36,5 @@ export async function GET(_req: NextRequest, context: RouteContext) {
             { message: "파일을 찾을 수 없습니다." },
             { status: 404 }
         );
-}
+    }
 }

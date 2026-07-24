@@ -1,10 +1,11 @@
-'use client'
+'use client';
 
 import {ColumnDef, RowData} from "@tanstack/react-table";
 import {AudioDetail} from "@/src/repository/audio/types";
-import {MoreHorizontalIcon, Pause, Play, SquarePenIcon, Trash2Icon} from "lucide-react";
+import {Pause, Play} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
+
+import ColumnActions from "@/src/feature/audio/ui/ColumnActions";
 
 declare module '@tanstack/react-table' {
     interface TableMeta<TData extends RowData> {
@@ -71,23 +72,11 @@ export const AudioColumns: ColumnDef<AudioDetail>[] = [
     {
         id: 'actions',
         header: '',
-        cell: () => {
-            return (
-                <div className={'text-right'}>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger render={
-                            <Button variant={'ghost'} size={'icon'}>
-                                <MoreHorizontalIcon className={'size-4'}/>
-                            </Button>
-                        }>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuItem><SquarePenIcon/> 수정</DropdownMenuItem>
-                            <DropdownMenuItem variant={'destructive'}><Trash2Icon/> 삭제</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            )
+        cell: ({row}) => {
+            const {audioCommon, uuid} = row.original
+            const title = audioCommon?.title || '';
+
+            return <ColumnActions title={title} uuid={uuid}/>
         }
     }
 ]

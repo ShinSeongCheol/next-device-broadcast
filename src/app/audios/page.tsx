@@ -1,4 +1,4 @@
-import {AudioColumns, AudioUploadForm, DataTable} from "@/src/feature/audio";
+import {AudioUploadForm, DataTable} from "@/src/feature/audio";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -31,7 +31,7 @@ export default async function AudioPage() {
                 <AudioUploadForm/>
             </div>
 
-            <DataTable columns={AudioColumns} data={data} />
+            <DataTable data={data} />
         </div>
     )
 }

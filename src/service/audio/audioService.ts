@@ -1,7 +1,14 @@
 import {mkdir, readFile, writeFile} from "fs/promises";
 import crypto from "crypto";
 import path from "path";
-import {AudioDetail, createAudio, getAudio, selectAudioDetail, selectAudioDetails} from "@/src/repository/audio";
+import {
+    AudioDetail,
+    createAudio,
+    deleteAudio,
+    getAudio,
+    selectAudioDetail,
+    selectAudioDetails
+} from "@/src/repository/audio";
 import {spawn} from "node:child_process";
 import {Readable} from "node:stream";
 import {parseBuffer} from "music-metadata";
@@ -137,4 +144,8 @@ export async function getAudioDetailList(): Promise<AudioDetail[]> {
 
 export async function getAudioDetail(audioId: number): Promise<AudioDetail|null> {
     return await selectAudioDetail({audioId});
+}
+
+export async function removeAudio(uuid: string) {
+    return await deleteAudio({uuid});
 }

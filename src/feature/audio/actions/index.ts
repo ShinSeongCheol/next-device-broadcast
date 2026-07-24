@@ -1,2 +1,2 @@
-export {uploadAudioAction} from './actions'
+export {uploadAudioAction, deleteAudioAction} from './actions'
 export {type UploadAudioState} from './types';
